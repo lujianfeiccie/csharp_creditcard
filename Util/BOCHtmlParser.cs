@@ -15,29 +15,24 @@ namespace creditcard
         public override List<GoodList> parse()
         {
             List<GoodList> mList = new List<GoodList>();
-
-            MyRegex mcTitle = new MyRegex(html, @"onclick=""return false"" href=""#"">", "</A></TD>\r\n<TD class=group_text");
-            MyRegex mcIntegral = new MyRegex(html, "</A></TD>\r\n<TD class=group_text align=middle>", "</TD>");
-            MyRegex mcNo = new MyRegex(html, @"onclick=""return false"" href=""#"">", "</A></TD>\r\n<TD class=group_link");
-            MyRegex mcImgUrl = new MyRegex(html, "<TR>\r\n<TD class=group_link><A onmouseover=\"onMouseOverShowImg", "onmouseout");
-             
+            MatchCollection mcTitle = Regex.Matches(html, @"(?<=\bonclick=""return false"" href=""#"">).*(?=\b*</A></TD>\r\n<TD class=group_text)");
+            MatchCollection mcIntegral = Regex.Matches(html, @"(?<=\bA></TD>\r\n<TD class=group_text align=middle>).*(?=\b*</TD>)");
+            MatchCollection mcNo = Regex.Matches(html, @"(?<=\bonclick=""return false"" href=""#"">).*(?=\b*</A></TD>\r\n<TD class=group_link)");
+            MatchCollection mcImgUrl = Regex.Matches(html, @"(?<=\b*<TR>\r\n<TD class=group_link><A onmouseover=""onMouseOverShowImg\(').*(?=\b*')");
             int count = mcTitle.Count;
             for (int i = 0; i < count;i++)
             {
                 //解析title
-                string title = mcTitle.getValue(i);
+                string title = mcTitle[i].ToString();
 
                 //解析积分
-                string integral = mcIntegral.getValue(i);
+                string integral = mcIntegral[i].ToString();
                 
                 //解析编号
-                string no = mcNo.getValue(i);
+                string no = mcNo[i].ToString();
 
                 //解析ImgUrl
-                string imgUrl = mcImgUrl.getValue(i);
-                imgUrl = imgUrl.Replace("'", "");
-                imgUrl = imgUrl.Replace("(", "");
-                imgUrl = imgUrl.Replace(")", "");
+                string imgUrl = mcImgUrl[i].ToString();
                 imgUrl = "https://iservice.boccc.com.hk" + imgUrl;
 
                 GoodList mGoodList = new GoodList();
