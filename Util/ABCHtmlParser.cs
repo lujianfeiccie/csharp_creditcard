@@ -15,30 +15,29 @@ namespace creditcard
         public override List<GoodList> parse()
         {
             List<GoodList> mList = new List<GoodList>();
-
-            MyRegex mcTitle = new MyRegex(html, "<DIV class=Name><A title=","href=");
-            MyRegex mcIntegral = new MyRegex(html, "<SPAN class=GPriceRed>","</SPAN>");
-            MyRegex mcNo = new MyRegex(html, "<DIV class=GPrice>±àºÅ:","</DIV>");
-            MyRegex mcImgUrl = new MyRegex(html, @"alt="""" src=""",@"""");
-            MyRegex mcDetailedUrl = new MyRegex(html,
-                @"<DIV class=GImage><A href=""", @"""");
+            MatchCollection mcTitle = Regex.Matches(html, @"(?<=\bclass=Name><A title=).*(?=\bhref=)");
+            MatchCollection mcIntegral = Regex.Matches(html, @"(?<=\bSPAN class=GPriceRed>).*(?=\b</SPAN>)");
+            MatchCollection mcNo = Regex.Matches(html, @"(?<=\b±àºÅ: ).*(?=\b</DIV>)");
+            MatchCollection mcImgUrl = Regex.Matches(html, @"(?<=\bsrc="").*(?=""></A></DIV>)");
+            MatchCollection mcDetailedUrl = Regex.Matches(html, @"(?<=\bhref="").*(?=""\s+target=_blank><IMG)");
+            
             int count = mcTitle.Count;
             for (int i = 0; i < count;i++)
             {
                 //½âÎötitle
-                string title = mcTitle.getValue(i);
+                string title = mcTitle[i].ToString();
 
                 //½âÎö»ý·Ö
-                string integral = mcIntegral.getValue(i);
+                string integral = mcIntegral[i].ToString();
                 
                 //½âÎö±àºÅ
-                string no = mcNo.getValue(i);
+                string no = mcNo[i].ToString();
 
                 //½âÎöImgUrl
-                string imgUrl = mcImgUrl.getValue(i);
+                string imgUrl = mcImgUrl[i].ToString();
 
                 //½âÎöDetailedUrl
-                string detailedUrl = mcDetailedUrl.getValue(i);
+                string detailedUrl = mcDetailedUrl[i].ToString();
                 GoodList mGoodList = new GoodList();
                 mGoodList.Title = title;
                 mGoodList.Integral = integral;
