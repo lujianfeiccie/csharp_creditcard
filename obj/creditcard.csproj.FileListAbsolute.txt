@@ -9,3 +9,14 @@ F:\work\creditcard\creditcard\obj\Debug\creditcard.FormMain.resources
 F:\work\creditcard\creditcard\obj\Debug\creditcard.FormProgressDialog.resources
 F:\work\creditcard\creditcard\bin\Debug\creditcard.exe.config
 F:\work\creditcard\creditcard\bin\Debug\MySQLDriverCS.dll
+F:\workspace\study\csharp_creditcard\csharp_creditcard\bin\Debug\creditcard.exe.config
+F:\workspace\study\csharp_creditcard\csharp_creditcard\obj\Debug\creditcard.exe
+F:\workspace\study\csharp_creditcard\csharp_creditcard\obj\Debug\creditcard.pdb
+F:\workspace\study\csharp_creditcard\csharp_creditcard\bin\Debug\creditcard.exe
+F:\workspace\study\csharp_creditcard\csharp_creditcard\bin\Debug\creditcard.pdb
+F:\workspace\study\csharp_creditcard\csharp_creditcard\bin\Debug\MySQLDriverCS.dll
+F:\workspace\study\csharp_creditcard\csharp_creditcard\obj\Debug\ResolveAssemblyReference.cache
+F:\workspace\study\csharp_creditcard\csharp_creditcard\obj\Debug\creditcard.FormMain.resources
+F:\workspace\study\csharp_creditcard\csharp_creditcard\obj\Debug\creditcard.FormProgressDialog.resources
+F:\workspace\study\csharp_creditcard\csharp_creditcard\obj\Debug\creditcard.Properties.Resources.resources
+F:\workspace\study\csharp_creditcard\csharp_creditcard\obj\Debug\creditcard.csproj.GenerateResource.Cache

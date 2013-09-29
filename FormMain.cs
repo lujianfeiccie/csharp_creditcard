@@ -199,7 +199,7 @@ namespace creditcard
             richTextBox1.Text = html;
 
             context.Html = html;
-            context.Parser = new BOCHtmlParser();
+            context.Parser = new PingAnHtmlParser();
             context.parse();
         }
 

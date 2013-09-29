@@ -15,31 +15,29 @@ namespace creditcard
         public override List<GoodList> parse()
         {
             List<GoodList> mList = new List<GoodList>();
-
-            MyRegex mcTitle = new MyRegex(html, @"target=_blank><IMG alt=", "src=");
-            MyRegex mcIntegral = new MyRegex(html, "<DIV class=txt_bg_jinbi><SPAN class=c_e><SPAN class=fwb>", "</SPAN>");
-            MyRegex mcNo = new MyRegex(html, "product_", ".html");
-            MyRegex mcImgUrl = new MyRegex(html, "src=\"","\"> </A></DIV>\r\n<DIV class=pro_name>");
-             MyRegex mcDetailedUrl = new MyRegex(html,
-                 @"href=""../", @"""");
+            MatchCollection mcTitle = Regex.Matches(html, @"(?<=\bIMG alt=).*(?=\b*src)");
+            MatchCollection mcIntegral = Regex.Matches(html, @"(?<=\btxt_bg_jinbi\>\<SPAN class=c_e\>\<SPAN class=fwb>).*(?=\b\<\/SPAN\>分)");
+            MatchCollection mcNo = Regex.Matches(html, @"(?<=\btitle="""" href=""../product_).*(?=\b.html)");
+            MatchCollection mcImgUrl = Regex.Matches(html, @"(?<=\bsrc="").*(?=\b"">\s+</A></DIV>\r\n<DIV class=pro_name)");
+            MatchCollection mcDetailedUrl = Regex.Matches(html, @"(?<=\btitle="""" href=""..).*(?=\b=""\s+target=_blank)");
             int count = mcTitle.Count;
             for (int i = 0; i < count;i++)
             {
                
                 //解析title
-                string title = mcTitle.getValue(i);
+                string title = mcTitle[i].ToString().Replace("\"","");
 
                 //解析积分
-                string integral = mcIntegral.getValue(i);
+                string integral = mcIntegral[i].ToString();
                 
                 //解析编号
-                string no = mcNo.getValue(i);
+                string no = mcNo[i].ToString();
 
                 //解析ImgUrl
-                 string imgUrl = mcImgUrl.getValue(i);
+                string imgUrl = mcImgUrl[i].ToString();
 
                  //解析DetailedUrl
-                 string detailedUrl = "http://www.wanlitong.com/"+mcDetailedUrl.getValue(i);
+                string detailedUrl = "http://www.wanlitong.com"+mcDetailedUrl[i].ToString();
                 GoodList mGoodList = new GoodList();
                 mGoodList.Title = title;
                 mGoodList.Integral = integral;
