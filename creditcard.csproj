@@ -57,7 +57,6 @@
     <Compile Include="Util\DBHelper.cs" />
     <Compile Include="Util\GoodList.cs" />
     <Compile Include="Util\IHtmlParser.cs" />
-    <Compile Include="Util\MyRegex.cs" />
     <Compile Include="Util\ABCHtmlParser.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
