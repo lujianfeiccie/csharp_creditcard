@@ -150,8 +150,8 @@ namespace creditcard
       
         private void add(GoodList good) {
             good.Typeid = selectedValue;
-            string executeString = string.Format("INSERT INTO `tb_good`(good_name,good_integral,good_no,good_imgurl,good_detailedurl,good_typeid) VALUES ('{0}', '{1}', '{2}', '{3}', '{4}', {5})",
-            good.Title, good.Integral, good.No, good.ImgUrl, good.DetailedUrl, good.Typeid);
+            string executeString = string.Format("INSERT INTO `tb_good`(good_name,good_integral,good_no,good_imgurl,good_detailedurl,good_typeid,good_cash) VALUES ('{0}', '{1}', '{2}', '{3}', '{4}', {5},'{6}')",
+            good.Title, good.Integral, good.No, good.ImgUrl, good.DetailedUrl, good.Typeid, good.Cash);
             DBHelper.ExecuteCommand(executeString);
         }
         private void button1_Click(object sender, EventArgs e)
@@ -220,20 +220,19 @@ namespace creditcard
             
             richTextBox1.Text = html;
             Thread thread = new Thread(new ParameterizedThreadStart(saveData));
-            //saveData(html);
             thread.Start(html);
         }
 
         private void button3_Click(object sender, EventArgs e)
         {
-            /*Context context = new Context();
+            Context context = new Context();
           
             string html = webBrowser1.Document.Body.OuterHtml;
             richTextBox1.Text = html;
 
             context.Html = html;
-            context.Parser = new CMBCHtmlParser();
-            context.parse();*/
+            context.Parser = new BOCHtmlParser();
+            context.parse();
              
 
         }

@@ -12,7 +12,11 @@ namespace creditcard
         private string no;
         private string detailedUrl;
         private string typeid;
-
+        private string cash;
+        public GoodList()
+        {
+            this.cash = "0";
+        }
         public string Typeid
         {
             get { return typeid; }
@@ -42,6 +46,11 @@ namespace creditcard
         {
             get { return imgUrl; }
             set { imgUrl = value; }
+        }
+        public string Cash
+        {
+            get { return cash; }
+            set { cash = value; }
         }
     }
 }

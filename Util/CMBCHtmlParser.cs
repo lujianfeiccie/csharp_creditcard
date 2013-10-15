@@ -32,6 +32,7 @@ namespace creditcard
             string integral = "";
             string no = "";
             string imgUrl = "";
+            string cash = "0";
             for (int i = 0,j=0; i < count;i++,j++)
             {
                 //解析title
@@ -47,12 +48,13 @@ namespace creditcard
                   
                 //解析积分
                 integral = mcIntegral[j].ToString();
+                cash = "0";
                 if (j + 1 < count_for_integral)
-                { //如果有现金叠加条件，则加入,￥123等
+                { //解析现金
                     string next_integral = mcIntegral[j + 1].ToString();
                     if (next_integral.Trim().StartsWith("￥"))
                     {
-                        integral += "," + next_integral;
+                        cash = next_integral.Replace("￥","");
                         ++j; 
                     }
                 }
@@ -67,6 +69,7 @@ namespace creditcard
                 mGoodList.No = no;
                 mGoodList.ImgUrl = imgUrl;
                 mGoodList.DetailedUrl = detailed_url;
+                mGoodList.Cash = cash;
                 mList.Add(mGoodList);
             }
             return mList;

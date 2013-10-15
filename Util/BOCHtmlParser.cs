@@ -19,6 +19,8 @@ namespace creditcard
             MatchCollection mcIntegral = Regex.Matches(html, @"(?<=\bA></TD>\r\n<TD class=group_text align=middle>).*(?=\b*</TD>)");
             MatchCollection mcNo = Regex.Matches(html, @"(?<=\bonclick=""return false"" href=""#"">).*(?=\b*</A></TD>\r\n<TD class=group_link)");
             MatchCollection mcImgUrl = Regex.Matches(html, @"(?<=\b*<TR>\r\n<TD class=group_link><A onmouseover=""onMouseOverShowImg\(').*(?=\b*')");
+            MatchCollection mcCash = Regex.Matches(html, @"(?<=align=middle>).*(?=</TD>\r\n<TD.*class=group_text align=middle><INPUT)");
+            
             int count = mcTitle.Count;
             for (int i = 0; i < count;i++)
             {
@@ -35,12 +37,15 @@ namespace creditcard
                 string imgUrl = mcImgUrl[i].ToString();
                 imgUrl = "https://iservice.boccc.com.hk" + imgUrl;
 
+                string cash = mcCash[i].ToString();
+
                 GoodList mGoodList = new GoodList();
                 mGoodList.Title = title;
                 mGoodList.Integral = integral;
                 mGoodList.No = no;
                 mGoodList.ImgUrl = imgUrl;
                 mGoodList.DetailedUrl = "";
+                mGoodList.Cash = cash;
                 mList.Add(mGoodList);
             }
             return mList;
