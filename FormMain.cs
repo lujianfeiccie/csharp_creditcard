@@ -48,20 +48,27 @@ namespace creditcard
 
         void webBrowser1_DocumentCompleted(object sender, WebBrowserDocumentCompletedEventArgs e)
         {
+            if (timer != null)
+            {
+                timer.Dispose();
+                timer = null;
+            }
             log("webBrowser1_DocumentCompleted");
            // MessageBox.Show(webBrowser1.DocumentText);
             string html = webBrowser1.Document.Body.OuterHtml;
             richTextBox1.Text = html;
          
         }
-        private void saveData(string html){
-            mContext.Html = html;
+        private void saveData(object html){
+            
+            mContext.Html = html.ToString();
+            this.BeginInvoke(new UIHandler1(showProgressDialog), new string[] { string.Format("正在解析数据") }); 
             mList = mContext.parse();
 
             if (mList == null || mList.Count <= 0) return;
             log("showData");
             count_add_new = 0;
-            this.BeginInvoke(new UIHandler1(showProgressDialog), new string[] { "正在录入数据,请稍候..."});
+            this.BeginInvoke(new UIHandler1(setProgressDialogMsg), new string[] { string.Format("正在插入数据") }); 
             foreach (GoodList good in mList)
             {
 
@@ -89,16 +96,33 @@ namespace creditcard
         void showProgressDialog(string msg){
             log("showProgressDialog"+msg);
             lblState.Text = msg; 
+            
             if (mFormProgressDialog == null)
             {
                 mFormProgressDialog = new FormProgressDialog();
+               
             }
             mFormProgressDialog.Title = "提示";
             mFormProgressDialog.Message = msg;
             mFormProgressDialog.StartPosition = FormStartPosition.Manual;
             mFormProgressDialog.Location = new Point(this.Location.X + this.Width / 2 - mFormProgressDialog.Width / 2, this.Location.Y + this.Height / 2 + mFormProgressDialog.Height/2);
             mFormProgressDialog.ShowDialog();
-             
+        }
+        void setProgressDialogMsg(string msg)
+        {
+            log("showProgressDialog" + msg);
+            lblState.Text = msg;
+
+            if (mFormProgressDialog == null)
+            {
+                return;
+            }
+            
+            mFormProgressDialog.Title = "提示";
+            mFormProgressDialog.Message = msg;
+            mFormProgressDialog.StartPosition = FormStartPosition.Manual;
+            mFormProgressDialog.Location = new Point(this.Location.X + this.Width / 2 - mFormProgressDialog.Width / 2, this.Location.Y + this.Height / 2 + mFormProgressDialog.Height / 2);
+          
         }
          
         void closeProgressDialog(string msg) {
@@ -148,6 +172,13 @@ namespace creditcard
                     mContext.Parser = new BOCHtmlParser();
                     webBrowser1.Navigate(CommonHttp.URL_BOC);
                     break;
+                case 4:
+                    mContext.Parser = new CMBCHtmlParser();
+                    webBrowser1.Navigate(CommonHttp.URL_CMBC);
+                    break;
+                default:
+                    return;
+                   
             }
 
             showProgressDialog("正在载入页面,请稍候...");
@@ -188,19 +219,23 @@ namespace creditcard
             html = obj.Body.OuterHtml;
             
             richTextBox1.Text = html;
-            saveData(html);
+            Thread thread = new Thread(new ParameterizedThreadStart(saveData));
+            //saveData(html);
+            thread.Start(html);
         }
 
         private void button3_Click(object sender, EventArgs e)
         {
-            Context context = new Context();
+            /*Context context = new Context();
           
             string html = webBrowser1.Document.Body.OuterHtml;
             richTextBox1.Text = html;
 
             context.Html = html;
-            context.Parser = new BOCHtmlParser();
-            context.parse();
+            context.Parser = new CMBCHtmlParser();
+            context.parse();*/
+             
+
         }
 
         private void btSearch_Click(object sender, EventArgs e)

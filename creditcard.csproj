@@ -89,6 +89,8 @@
     </Compile>
     <Compile Include="Util\PingAnHtmlParser.cs" />
     <Compile Include="Util\BOCHtmlParser.cs" />
+    <Compile Include="Util\CMBCHtmlParser.cs" />
+    <Compile Include="Util\StringHelper.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
