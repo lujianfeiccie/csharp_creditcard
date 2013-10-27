@@ -225,16 +225,14 @@ namespace creditcard
 
         private void button3_Click(object sender, EventArgs e)
         {
-            Context context = new Context();
+            /*Context context = new Context();
           
             string html = webBrowser1.Document.Body.OuterHtml;
             richTextBox1.Text = html;
 
             context.Html = html;
             context.Parser = new BOCHtmlParser();
-            context.parse();
-             
-
+            context.parse();*/
         }
 
         private void btSearch_Click(object sender, EventArgs e)

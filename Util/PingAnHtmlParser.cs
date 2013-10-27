@@ -29,7 +29,7 @@ namespace creditcard
 
                 //解析积分
                 string integral = mcIntegral[i].ToString();
-                
+                integral = integral.Equals(",", "");
                 //解析编号
                 string no = mcNo[i].ToString();
 
